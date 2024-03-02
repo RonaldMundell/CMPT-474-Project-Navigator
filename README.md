@@ -1,1 +1,1 @@
-# CMPT-476-Project-Navigator
+# CMPT-474-Project-Navigator
