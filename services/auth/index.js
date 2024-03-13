@@ -2,8 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require("path");
 const { signInWithEmailAndPassword, onAuthStateChanged } = require('firebase/auth');
-const { firebaseAuth, auth } = require(path.join(__dirname, 'fire'))
+const { connectFunctionsEmulator, getFunctions, httpsCallable } = require ("firebase/functions");
+const { firebaseAuth, auth, functions } = require(path.join(__dirname, 'fire'))
 
+// connectFunctionsEmulator(functions, "localhost", 5001);
 const app = express();
 const PORT = 8080;
 
@@ -17,14 +19,34 @@ app.listen(PORT, () => {
 
 // Routes
 app.get("/", (req, res) => {
-  onAuthStateChanged(auth, (user) => {
+  const auth = firebaseAuth.getAuth();
+  onAuthStateChanged(auth, async (user) => {
     if (user) {
       res.render('base', {
-        displayName: user.email
+        displayName: user.uid,
       });
     } else {
       res.render('signup');
     }
+  })
+});
+
+app.post("/", (req, res) => {
+  const {teacher, classroom} = req.body;
+  console.log(teacher, classroom);
+  var addClassroom = httpsCallable(functions, 'addClassroom')
+  console.log(addClassroom);
+  addClassroom({
+    classCode: classroom,
+    teacherName: teacher
+  }).then((result) => {
+    console.log(result.data);
+    res.redirect('/')
+  }).catch((error) => {
+    console.log( "error", error );
+    console.log( "code", error.code );
+    console.log( "message", error.message );
+    console.log( "details", error.details );
   })
 });
 
@@ -40,7 +62,6 @@ app.post('/signup', (req, res) => {
   firebaseAuth.createUserWithEmailAndPassword(auth, username, password).then((userCredential) => {
     const user = userCredential.user;
     res.redirect("/");
-    console.log(user);
   })
   .catch((error) => {
     const errorCode = error.code;
