@@ -42,8 +42,18 @@
   },
   "functions": [
     {
-      "source": "functions",
-      "codebase": "default",
+      "source": "services/signup",
+      "codebase": "signup",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ]
+    },
+    {
+      "source": "services/teacher",
+      "codebase": "teacher",
       "ignore": [
         "node_modules",
         ".git",
