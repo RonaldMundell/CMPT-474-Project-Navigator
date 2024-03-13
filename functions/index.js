@@ -1,14 +1,16 @@
 
 const functions = require('firebase-functions');
+const admin = require('firebase-admin');
 
-exports.bigben = functions.https.onRequest((req, res) => {
-  const hours = (new Date().getHours() % 12) + 1  // London is UTC + 1hr;
-  res.status(200).send(`<!doctype html>
-    <head>
-      <title>Time</title>
-    </head>
-    <body>
-      ${'BONG '.repeat(hours)}
-    </body>
-  </html>`);
+admin.initializeApp();
+const db = admin.firestore();
+
+exports.addUserAfterCreation = functions.auth.user().onCreate((user) => {
+    return addUserToDb(user.email, user.uid);
 });
+
+async function addUserToDb(email, uid) {
+    await db.collection('users').doc(uid).set({
+        email: email
+    });
+}
