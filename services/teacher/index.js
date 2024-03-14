@@ -17,7 +17,7 @@ exports.addClassroom = functions.https.onCall((data, context) => {
         'while authenticated');
     }
 
-    const uid = context.auth.uid;
+    const uid = context.auth.uid || null;
     return addUserToClassDb(classCode, teacherName, uid);
     
 });
