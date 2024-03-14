@@ -5,7 +5,7 @@ const { signInWithEmailAndPassword, onAuthStateChanged } = require('firebase/aut
 const { connectFunctionsEmulator, getFunctions, httpsCallable } = require ("firebase/functions");
 const { firebaseAuth, auth, functions } = require(path.join(__dirname, 'fire'))
 
-// connectFunctionsEmulator(functions, "localhost", 5001);
+// connectFunctionsEmulator(functions, "localhost", 5001); 
 const app = express();
 const PORT = 8080;
 
@@ -16,7 +16,7 @@ app.set('views', path.join(__dirname, './frontend/views'));
 app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`);
 });
-
+//
 // Routes
 app.get("/", (req, res) => {
   const auth = firebaseAuth.getAuth();
@@ -32,13 +32,30 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
+  // add teacher
   const {teacher, classroom} = req.body;
   console.log(teacher, classroom);
   var addClassroom = httpsCallable(functions, 'addClassroom')
-  console.log(addClassroom);
   addClassroom({
     classCode: classroom,
     teacherName: teacher
+  }).then((result) => {
+    console.log(result.data);
+    res.redirect('/')
+  }).catch((error) => {
+    console.log( "error", error );
+    console.log( "code", error.code );
+    console.log( "message", error.message );
+    console.log( "details", error.details );
+  })
+
+
+  // add student
+  const {studentName, classroomCode } = req.body;
+  var addStudent = httpsCallable(functions, 'addStudent')
+  addStudent({
+    studentName: studentName,
+    classroomCode: classroomCode
   }).then((result) => {
     console.log(result.data);
     res.redirect('/')
@@ -60,13 +77,13 @@ app.post('/signup', (req, res) => {
 
   console.log(username, password);
   firebaseAuth.createUserWithEmailAndPassword(auth, username, password).then((userCredential) => {
-    const user = userCredential.user;
+    // const user = userCredential.user;
     res.redirect("/");
   })
   .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    res.send(errorMessage);
+    // const errorCode = error.code;
+    // const errorMessage = error.message;
+    res.redirect('/signup');
   })
 })
 
@@ -84,8 +101,8 @@ app.post('/login', (req, res) => {
     res.redirect("/");
   })
   .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    res.send(errorMessage);
+    // const errorCode = error.code;
+    // const errorMessage = error.message;
+    res.redirect('/login');
   })
 });
