@@ -23,7 +23,7 @@ exports.addClassroom = functions.https.onCall((data, context) => {
 });
 
 async function addUserToClassDb(classCode, teacherName, uid) {
-    return db.collection('classroom').doc(classCode).set({
+    return db.collection('classroom').doc(classCode.toString()).set({
         teacherName: teacherName,
         uid: uid
     })

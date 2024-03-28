@@ -19,6 +19,14 @@ router.get("/", (_, res) => {
   }
 });
 
+// Routes
+router.get("/test", (_, res) => {
+  res.render('base', {
+    displayName: "test"
+  });
+});
+
+
 router.post("/", (req, res) => {
   // add teacher
   const { teacher, classroom } = req.body;
