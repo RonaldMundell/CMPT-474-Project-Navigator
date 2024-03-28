@@ -4,6 +4,7 @@ var firebaseApp = require("firebase/app");
 var firebaseAuth = require("firebase/auth");
 var fireStore = require("firebase/firestore");
 var firebaseFunctions = require("firebase/functions");
+var firebaseAdmin = require("firebase-admin");
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -17,12 +18,14 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+const admin = firebaseAdmin.initializeApp(firebaseConfig);
 const app = firebaseApp.initializeApp(firebaseConfig);
 const auth = firebaseAuth.getAuth(app);
 const db = fireStore.getFirestore(app);
 const functions = firebaseFunctions.getFunctions(app);
 
 module.exports = {
+  admin,
   auth,
   firebaseAuth,
   db,
