@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Navigator</title>
     <style>
-        /* Simple CSS for styling */
+        /* Updated CSS for styling */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
+            background-color: #f9f9f9;
         }
         .container {
             max-width: 600px;
             margin: 50px auto;
             padding: 20px;
-            background-color: #fff;
+            background-color: #ffffff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
@@ -24,13 +24,13 @@
             width: 100%;
             padding: 10px;
             margin: 5px 0;
-            border: 1px solid #ccc;
+            border: 1px solid #dddddd;
             border-radius: 4px;
             box-sizing: border-box;
         }
         input[type="submit"] {
             width: 100%;
-            background-color: #4CAF50;
+            background-color: #e74c3c;
             color: white;
             padding: 14px 20px;
             margin: 8px 0;
@@ -39,33 +39,38 @@
             cursor: pointer;
         }
         input[type="submit"]:hover {
-            background-color: #45a049;
+            background-color: #c0392b;
+        }
+        label {
+            color: #333333;
+            margin-bottom: 5px;
+            display: block;
         }
     </style>
 </head>
 <body>
-
+    <div class="container"> <h2>Welcome back <%= displayName %> </h2>
+    </div>
     <div class="container">
         <h2>Create Classroom</h2>
-        <form id="create-classroom-form">
-            <label for="classroom-name">Classroom Name:</label>
-            <input type="text" id="classroom-name" name="classroom-name" placeholder="Enter classroom name" required>
-            <label for="teacher-name">Teacher's Name:</label>
-            <input type="text" id="teacher-name" name="teacher-name" placeholder="Enter teacher's name" required>
+        <form method="post" id="create-classroom-form">
+            <label for="classroom">Classroom Name:</label>
+            <input type="text" id="classroom" name="classroom" placeholder="Enter classroom name" required>
+            <label for="teacher">Teacher's Name:</label>
+            <input type="text" id="teacher" name="teacher" placeholder="Enter teacher's name" required>
             <input type="submit" value="Create Classroom">
         </form>
     </div>
 
     <div class="container">
         <h2>Add Students</h2>
-        <form id="add-student-form">
-            <label for="student-name">Student's Name:</label>
-            <input type="text" id="student-name" name="student-name" placeholder="Enter student's name" required>
-            <label for="classroom-code">Classroom Code:</label>
-            <input type="text" id="classroom-code" name="classroom-code" placeholder="Enter classroom code" required>
+        <form method="post" id="add-student-form">
+            <label for="studentName">Student's Name:</label>
+            <input type="text" id="student-name" name="studentName" placeholder="Enter student's name" required>
+            <label for="classroomCode">Classroom Code:</label>
+            <input type="text" id="classroom-code" name="classroomCode" placeholder="Enter classroom code" required>
             <input type="submit" value="Add Student">
         </form>
     </div>
-
 </body>
 </html>

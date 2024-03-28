@@ -1,0 +1,85 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/bigben",
+        "function": {
+          "functionId": "bigben",
+          "region": "us-central1"
+        }
+      },
+      {
+        "source": "/",
+        "run": {
+          "serviceId": "hello",
+          "region": "us-west1",
+          "pinTag": true
+        }
+      },
+      {
+        "source": "/signup",
+        "run": {
+          "serviceId": "hello",
+          "region": "us-west1",
+          "pinTag": true
+        }
+      },
+      {
+        "source": "/login",
+        "run": {
+          "serviceId": "hello",
+          "region": "us-west1",
+          "pinTag": true
+        }
+      }
+    ]
+  },
+  "functions": [
+    {
+      "source": "services/signup",
+      "codebase": "signup",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ]
+    },
+    {
+      "source": "services/teacher",
+      "codebase": "teacher",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ]
+    },
+    {
+      "source": "services/student",
+      "codebase": "student",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ]
+    },
+    {
+      "source": "services/auth",
+      "codebase": "auth",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ]
+    }
+  ]
+}
