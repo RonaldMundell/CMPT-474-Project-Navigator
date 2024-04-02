@@ -5,26 +5,26 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 const db = admin.firestore();
 
-exports.addUserAfterCreation = functions.auth.user().onCreate(async (user) => {
-  await addUserToDb(user.email, user.uid);
+exports.addUserAfterCreation = functions.https.onCall((data, context) => {
+  return addUserToDb(data.email, data.uid);
 });
 
-exports.setRole = functions.https.onCall(async (data, context) => {
+exports.setRole = functions.https.onCall((data, context) => {
   console.log(data);
   if (!context.auth) {
     throw new functions.https.HttpsError('unauthenticated', 'You must be signed in to change role');
   }
-  await setRoleInDb(data.uid, data.role);
+  return setRoleInDb(data.uid, data.role);
 })
 
-async function setRoleInDb(uid, role) {
-  await db.collection('users').doc(uid.toString()).update({
+function setRoleInDb(uid, role) {
+  return db.collection('users').doc(uid.toString()).update({
     role: role
   });
 }
 
-async function addUserToDb(email, uid) {
-  await db.collection('users').doc(uid.toString()).set({
+function addUserToDb(email, uid) {
+  return db.collection('users').doc(uid.toString()).set({
     email: email
   });
 }

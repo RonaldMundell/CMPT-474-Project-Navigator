@@ -73,20 +73,19 @@ router.post('/signup', async (req, res) => {
   console.log(username, password);
 
   const setRole = httpsCallable(functions, 'setRole')
-  var uid = "";
-  await firebaseAuth.createUserWithEmailAndPassword(auth, username, password)
-    .then((userCredential) => {
-      uid = userCredential.user.uid;
+  const addUserAfterCreation = httpsCallable(functions, 'addUserAfterCreation')
+  firebaseAuth.createUserWithEmailAndPassword(auth, username, password)
+    .then(async (userCred) => {
+      uid = userCred.user.uid;
+      await addUserAfterCreation({ email: username, uid });
+      await setRole({ uid, role });
+      res.redirect('/');
     })
     .catch((error) => {
       console.log(error.code);
       console.log(error.message);
       res.redirect('/signup');
     })
-  await setRole({ uid, role }).then((result) => {
-    console.log("added role:", role)
-  }).catch(error => console.log(error));
-  return res.redirect('/');
 })
 
 router.get('/login', (_, res) => {
