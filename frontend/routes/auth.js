@@ -68,32 +68,28 @@ router.get('/signup', (req, res) => {
   res.render('signup');
 })
 
-router.post('/signup', (req, res) => {
-  console.log(req.body);
-  const { username, password } = req.body;
+router.post('/signup', async (req, res) => {
+  const { username, password, role } = req.body;
   console.log(username, password);
 
-  var generateJWT = httpsCallable(functions, 'generateJWT')
-  firebaseAuth.createUserWithEmailAndPassword(auth, username, password)
+  const setRole = httpsCallable(functions, 'setRole')
+  var uid = "";
+  await firebaseAuth.createUserWithEmailAndPassword(auth, username, password)
     .then((userCredential) => {
-      generateJWT({
-        userId: userCredential.user.uid
-      }).then((token) => {
-        console.log(token)
-        res.cookie('token', token.data);
-        res.redirect('/');
-      }).catch((error) => {
-        console.log("error", error);
-      })
+      uid = userCredential.user.uid;
     })
     .catch((error) => {
       console.log(error.code);
       console.log(error.message);
       res.redirect('/signup');
     })
+  await setRole({ uid, role }).then((result) => {
+    console.log("added role:", role)
+  }).catch(error => console.log(error));
+  return res.redirect('/');
 })
 
-router.get('/login', (req, res) => {
+router.get('/login', (_, res) => {
   res.render('login');
 })
 
@@ -107,8 +103,8 @@ router.post('/login', (req, res) => {
     res.redirect("/");
   })
     .catch((error) => {
-      // const errorCode = error.code;
-      // const errorMessage = error.message;
+      const errorCode = error.code;
+      const errorMessage = error.message;
       res.redirect('/login');
     })
 });
