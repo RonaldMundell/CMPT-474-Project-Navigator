@@ -14,6 +14,7 @@
             transition: background-color 0.3s ease; /* Added background color transition */
             color: #333; /* Default text color */
         }
+        
         .container {
             max-width: 600px;
             margin: 50px auto;
@@ -21,8 +22,52 @@
             background-color: #ffffff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease; /* Added background color transition */
+            margin: 50px auto;
+            align-items: left;
+            text-align: left;
+            /* margin-left: auto; */
+            /* margin-right: auto; */
         }
+
+        .logo-container {
+            width: 100px;
+            height: auto;
+            display: flex;
+            justify-content: left;
+            align-items: left;
+            /* margin-left: auto; */
+            /* margin-right: auto; */
+
+        }
+        .logo-container img {
+            width: 100%;
+            height: auto;
+            /* position: absolute; */
+            /* left: 10px; */
+            /* top: 50%; */
+            /* transform: translateY(-50%); */
+            /* width: 100%; */
+            /* height: auto; */
+            /* align-items: left; */
+            /* justify-content: left; */
+        }
+        .banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #2ecc71; /* Forest green */
+            color: #fff;
+            padding: 10px;
+            /* text-align: center; */
+            border-radius: 8px 8px 0 0;
+            transition: background-color 0.3s ease; /* Added background color transition */
+            position: relative; /* Added position relative for absolute positioning */
+        }
+        .title-container {
+            flex-grow: 1;
+            text-align: center;
+        }
+
         input[type="text"], input[type="password"], select {
             width: 100%;
             padding: 10px;
@@ -51,23 +96,8 @@
             display: block;
         }
         /* Banner and Logo */
-        .banner {
-            background-color: #2ecc71; /* Forest green */
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-            border-radius: 8px 8px 0 0;
-            transition: background-color 0.3s ease; /* Added background color transition */
-            position: relative; /* Added position relative for absolute positioning */
-        }
-        .logo {
-            position: absolute; /* Position the logo absolutely */
-            top: 50%; /* Adjust top position */
-            transform: translateY(-50%); /* Center vertically */
-            left: 10px; /* Adjust left position */
-            width: 40px; /* Adjust width as needed */
-            height: auto;
-        }
+
+
         /* Dark Mode Button */
         .dark-mode-btn {
             position: absolute;
@@ -106,10 +136,9 @@
 
     <!-- Banner -->
     <div class="banner">
-        <img class="logo" src="frontend/views/logo.png" alt="Logo">
- <!-- Adjust the src attribute to point to your logo file -->
-        <h1>Project Navigator</h1>
-        <button class="dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+        <div class="logo-container"><img src="../logo_smol.png" alt="Logo" /></div>
+        <!-- <h1>Project Navigator</h1> -->
+        <!-- <button class="dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button> -->
     </div>
 
     <div class="container">

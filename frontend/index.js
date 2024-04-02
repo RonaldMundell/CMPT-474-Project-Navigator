@@ -9,6 +9,9 @@ const app = express();
 const PORT = 8080;
 const FUNCTIONS_PORT = 5001;
 
+// For displaying logo image
+app.use(express.static(__dirname));
+
 // disable this when deploying to production
 connectFunctionsEmulator(functions, "localhost", FUNCTIONS_PORT);
 

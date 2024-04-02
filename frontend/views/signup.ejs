@@ -20,13 +20,34 @@
           transition: background-color 0.3s ease; /* Added background color transition */
           position: relative; /* Added position relative for absolute positioning */
       }
-      .logo {
-          position: absolute; /* Position the logo absolutely */
-          top: 50%; /* Adjust top position */
-          transform: translateY(-50%); /* Center vertically */
-          left: 10px; /* Adjust left position */
-          width: 40px; /* Adjust width as needed */
-          height: auto;
+
+      .container {
+          max-width: 400px;
+          padding: 20px;
+          background-color: #ffffff;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          margin: 50px auto;
+          align-items: center;
+          margin-left: auto;
+          margin-right: auto;
+      }
+
+      .logo-container {
+        width: 350px;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+
+      }
+      .logo-container img {
+        width: 100%;
+        height: auto;
+        align-items: center;
+        justify-content: center;
       }
       /* Dark Mode Button */
       .dark-mode-btn {
@@ -73,15 +94,6 @@
           border-radius: 4px;
           cursor: pointer;
           transition: background-color 0.3s ease; /* Added color transition */
-      }
-
-      .container {
-          max-width: 400px;
-          padding: 20px;
-          background-color: #ffffff;
-          border-radius: 8px;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-          margin: 50px auto;
       }
 
       .title-box {
@@ -161,11 +173,11 @@
 </head>
 <body>
   <div class="banner">
-    <img class="logo" src="frontend/views/logo.png" alt="Logo">
-    <h1>Classroom Panel</h1>
-    <button class="dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    <!-- <h1>Classroom Panel</h1> -->
+    <!-- <button class="dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button> -->
   </div>
     <div class="container">
+        <div class="logo-container"><img src="../logo.png" alt="Logo" /></div>
         <h2>Signup</h2>
         <form method="post" action="/signup "id="signupForm">
             <input type="text" name="username" placeholder="Username" required>
