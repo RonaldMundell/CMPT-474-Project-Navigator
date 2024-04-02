@@ -49,28 +49,12 @@
     </style>
 </head>
 <body>
-    <div class="container"> <h2>Welcome back <%= displayName %> </h2>
-    </div>
-    <div class="container">
-        <h2>Create Classroom</h2>
-        <form method="post" id="create-classroom-form">
-            <label for="classroom">Classroom Name:</label>
-            <input type="text" id="classroom" name="classroom" placeholder="Enter classroom name" required>
-            <label for="teacher">Teacher's Name:</label>
-            <input type="text" id="teacher" name="teacher" placeholder="Enter teacher's name" required>
-            <input type="submit" value="Create Classroom">
-        </form>
-    </div>
-
-    <div class="container">
-        <h2>Add Students</h2>
-        <form method="post" id="add-student-form">
-            <label for="studentName">Student's Name:</label>
-            <input type="text" id="student-name" name="studentName" placeholder="Enter student's name" required>
-            <label for="classroomCode">Classroom Code:</label>
-            <input type="text" id="classroom-code" name="classroomCode" placeholder="Enter classroom code" required>
-            <input type="submit" value="Add Student">
-        </form>
+    <div>
+      <ul id="classroom-list">
+        <% classrooms.forEach(classroom => { %>
+        <li>classroom: <%= classroom.teacherName %> </li>
+        <% }); %>
+      </ul>
     </div>
 </body>
 </html>

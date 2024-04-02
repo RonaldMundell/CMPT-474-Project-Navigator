@@ -22,9 +22,27 @@ exports.addClassroom = functions.https.onCall((data, context) => {
 
 });
 
+exports.getClassrooms = functions.https.onCall((data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError('failed pre-condition', 'the function must be called' +
+      'while authenticated');
+  }
+
+  return db.collection('classroom').get().then((snapshot) => {
+    const classrooms = [];
+    snapshot.forEach((doc) => {
+      classrooms.push(doc.data());
+    });
+    console.log(classrooms)
+    return classrooms;
+  });
+
+});
+
 function addUserToClassDb(classCode, teacherName, uid) {
   return db.collection('classroom').doc(classCode.toString()).set({
     teacherName: teacherName,
     uid: uid
   })
 }
+

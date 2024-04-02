@@ -19,6 +19,22 @@ router.get("/", (_, res) => {
   }
 });
 
+router.get("/classrooms", async (_, res) => {
+  const getClassrooms = httpsCallable(functions, 'getClassrooms')
+  try {
+    const classrooms = await getClassrooms();
+    res.render('classrooms', {
+      classrooms: classrooms.data
+    });
+  }
+  catch {
+    error => {
+      console.log("classroom", error);
+    }
+  }
+});
+
+
 // Routes
 router.get("/test", (_, res) => {
   res.render('base', {
@@ -68,7 +84,7 @@ router.get('/signup', (req, res) => {
   res.render('signup');
 })
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', (req, res) => {
   const { username, password, role } = req.body;
   console.log(username, password);
 
@@ -76,7 +92,12 @@ router.post('/signup', async (req, res) => {
   firebaseAuth.createUserWithEmailAndPassword(auth, username, password)
     .then(async (userCred) => {
       uid = userCred.user.uid;
-      await addUserAfterCreation({ email: username, uid, role });
+      try {
+        await addUserAfterCreation({ email: username, uid, role });
+      }
+      catch (_) {
+        console.log("Could not add the user to db after creation...")
+      }
       res.redirect('/');
     })
     .catch((error) => {
