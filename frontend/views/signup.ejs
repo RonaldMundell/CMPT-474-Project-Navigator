@@ -5,136 +5,187 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #f9f9f9;
+          margin: 0;
+          padding: 0;
+      }
+      .banner {
+          background-color: #2ecc71; /* Forest green */
+          color: #fff;
+          padding: 10px;
+          text-align: center;
+          border-radius: 8px 8px 0 0;
+          transition: background-color 0.3s ease; /* Added background color transition */
+          position: relative; /* Added position relative for absolute positioning */
+      }
+      .logo {
+          position: absolute; /* Position the logo absolutely */
+          top: 50%; /* Adjust top position */
+          transform: translateY(-50%); /* Center vertically */
+          left: 10px; /* Adjust left position */
+          width: 40px; /* Adjust width as needed */
+          height: auto;
+      }
+      /* Dark Mode Button */
+      .dark-mode-btn {
+          position: absolute;
+          top: 10px; /* Adjust top position */
+          right: 10px; /* Adjust right position */
+          background-color: transparent;
+          color: #7f7f7f;
+          border: 1px solid #7f7f7f;
+          padding: 5px 10px;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: background-color 0.3s ease; /* Added color transition */
+      }
 
-        .container {
-            max-width: 400px;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+      .dark-mode-btn:hover {
+          background-color: #333;
+          color: #fff; /* White text on hover */
+      }
+      /* Dark Mode */
+      body.dark-mode {
+          background-color: #333; /* Dark gray */
+      }
+      .banner.dark-mode {
+          background-color: #004d00; /* Dark green */
+          border-bottom: 2px solid #666; /* Dark gray */
+          color: #fff; /* White text in dark mode */
+      }
+      input[type="text"], input[type="password"], select {
+          width: 100%;
+          padding: 10px;
+          margin: 5px 0;
+          border: 1px solid #dddddd;
+          border-radius: 4px;
+          box-sizing: border-box;
+      }
+      input[type="submit"] {
+          width: 100%;
+          background-color: #2ecc71; /* Matched button color with banner */
+          color: white; /* White text */
+          padding: 14px 20px;
+          margin: 8px 0;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: background-color 0.3s ease; /* Added color transition */
+      }
 
-        .title-box {
-            background-color:#520202;
-            color: #ffffff;
-            text-align: center;
-            padding: 10px;
-            border-radius: 8px 8px 0 0;
-            margin-bottom: 20px;
-        }
+      .container {
+          max-width: 400px;
+          padding: 20px;
+          background-color: #ffffff;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          margin: 50px auto;
+      }
 
-        .title {
-            font-family: 'Arial Black', sans-serif;
-            font-size: 24px;
-            margin: 0;
-        }
+      .title-box {
+          background-color: #2ecc71; /* Matched banner color */
+          color: #fff;
+          text-align: center;
+          padding: 10px;
+          border-radius: 8px 8px 0 0;
+          margin-bottom: 20px;
+      }
 
-        form {
-            text-align: center;
-        }
+      .title {
+          font-family: 'Arial Black', sans-serif;
+          font-size: 24px;
+          margin: 0;
+      }
 
-        input[type="text"],
-        input[type="password"],
-        button {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #dddddd;
-            border-radius: 5px;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
+      form {
+          text-align: center;
+      }
+      /* Styling for radio buttons */
+      input[type="radio"] {
+          /* Hide default radio button */
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          width: 20px; /* Size of custom radio button */
+          height: 20px; /* Size of custom radio button */
+          border: 2px solid #2ecc71; /* Border color */
+          border-radius: 50%; /* Make it round */
+          outline: none; /* Remove outline */
+          cursor: pointer; /* Show pointer cursor */
+          margin-right: 5px; /* Add some spacing between radio button and label */
+      }
+      
+      /* Styling for checked state of radio buttons */
+      input[type="radio"]:checked {
+          background-color: #2ecc71; /* Fill color when checked */
+      }
 
-        button {
-            background-color: #e74c3c;
-            color: #ffffff;
-            cursor: pointer;
-        }
+      input[type="text"],
+      input[type="password"],
+      button {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #dddddd;
+          border-radius: 5px;
+          box-sizing: border-box;
+          font-size: 16px;
+      }
 
-        button:hover {
-            background-color: #c0392b;
-        }
+      button {
+          background-color: #2ecc71; /* Matched banner color */
+          color: #fff; /* White text */
+          cursor: pointer;
+      }
 
-        .other-action {
-            text-align: center;
-            margin-top: 10px;
-        }
+      button:hover {
+          background-color: #27ae60; /* Darker green on hover */
+      }
 
-    .other-action a {
-    text-decoration: none;
-    color: #555555;
-    background-color: #dddddd; /* Gray background */
-    padding: 10px 20px; /* Adjust padding for button-like appearance */
-    border-radius: 5px;
-    }
+      .other-action {
+          text-align: center;
+          margin-top: 10px;
+      }
 
-    </style>
-  </head>
-  <body>
+      .other-action a {
+          text-decoration: none;
+          color: #555555;
+          background-color: #dddddd; /* Gray background */
+          padding: 10px 20px; /*  Adjust padding for button-like appearance */
+          border-radius: 5px; 
+      }
+
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <img class="logo" src="frontend/views/logo.png" alt="Logo">
+    <h1>Classroom Panel</h1>
+    <button class="dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+  </div>
     <div class="container">
-      <div class="title-box">
-        <h1 class="title">Project Navigator</h1>
-      </div>
-      <h2>Signup</h2>
-      <form method="post" action="/signup "id="signupForm">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="radio" name="role" value="student" default="checked"> Student
-        <input type="radio" name="role" value="teacher"> Teacher
-        <button type="submit">Signup</button>
-      </form>
-      <div class="other-action">
-        <a href="/login">Login Instead</a>
-      </div>
+        <h2>Signup</h2>
+        <form method="post" action="/signup "id="signupForm">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="radio" name="role" value="student" default="checked"> Student
+            <input type="radio" name="role" value="teacher"> Teacher
+            <button type="submit">Signup</button>
+        </form>
+        <div class="other-action">
+            <a href="/login">Login Instead</a>
+        </div>
     </div>
-  </body>
+    <script>
+      function toggleDarkMode() {
+          document.body.classList.toggle('dark-mode');
+          var banners = document.querySelectorAll('.banner');
+          banners.forEach(banner => {
+              banner.classList.toggle('dark-mode');
+          });
+      }
+  </script>
+</body>
 </html>
-<script>
-// document.addEventListener('DOMContentLoaded', function () {
-//   var form = document.getElementById('signupForm');
-//   form.addEventListener('submit', function (event) {
-//     event.preventDefault(); // Prevent the default form submission
-//     const formObj = {
-//       username: form.username.value,
-//       password: form.password.value,
-//     }
-//     console.log(formObj)
-//     fetch('/signup', {
-//       headers: {'Content-Type': 'application/json'},
-//       method: 'POST',
-//       mode: 'cors',
-//       body: JSON.stringify(formObj)
-//     })
-//       .then(response => {
-//         if (!response.ok) {
-//           // Extract the error message from the response and throw it
-//           return response.json().then(errData => {
-//             throw new Error(errData.message || 'Network response was not ok');
-//
-//           });
-//         }
-//         return response.json(); // if response is ok, parse it as JSON
-//       })
-//       .then(data => {
-//         if (data.success) {
-//           window.location.href = "/";
-//         } else {
-//           alert('Error: ' + data.message); // This will now correctly display the server-side error message
-//         }
-//       })
-//       .catch(error => {
-//         alert('Error: ' + error.message); // This will now correctly display the server-side error message
-//       });
-//   });
-// });
-// </script>

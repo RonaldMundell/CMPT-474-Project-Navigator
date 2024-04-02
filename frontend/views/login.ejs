@@ -10,10 +10,69 @@
             background-color: #f9f9f9;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+        }
+        .banner {
+            background-color: #2ecc71; /* Forest green */
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            transition: background-color 0.3s ease; /* Added background color transition */
+            position: relative; /* Added position relative for absolute positioning */
+        }
+        .logo {
+            position: absolute; /* Position the logo absolutely */
+            top: 50%; /* Adjust top position */
+            transform: translateY(-50%); /* Center vertically */
+            left: 10px; /* Adjust left position */
+            width: 40px; /* Adjust width as needed */
+            height: auto;
+        }
+        /* Dark Mode Button */
+        .dark-mode-btn {
+            position: absolute;
+            top: 10px; /* Adjust top position */
+            right: 10px; /* Adjust right position */
+            background-color: transparent;
+            color: #7f7f7f;
+            border: 1px solid #7f7f7f;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Added color transition */
+        }
+
+        .dark-mode-btn:hover {
+            background-color: #333;
+            color: #fff; /* White text on hover */
+        }
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #333; /* Dark gray */
+        }
+        .banner.dark-mode {
+            background-color: #004d00; /* Dark green */
+            border-bottom: 2px solid #666; /* Dark gray */
+            color: #fff; /* White text in dark mode */
+        }
+        input[type="text"], input[type="password"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #dddddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            background-color: #2ecc71; /* Matched button color with banner */
+            color: white; /* White text */
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Added color transition */
         }
 
         .container {
@@ -22,11 +81,12 @@
             background-color: #ffffff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 50px auto;
         }
 
         .title-box {
-            background-color: #520202;
-            color: #ffffff;
+            background-color: #2ecc71; /* Matched banner color */
+            color: #fff;
             text-align: center;
             padding: 10px;
             border-radius: 8px 8px 0 0;
@@ -56,13 +116,13 @@
         }
 
         button {
-            background-color: #e74c3c;
-            color: #ffffff;
+            background-color: #2ecc71; /* Matched banner color */
+            color: #fff; /* White text */
             cursor: pointer;
         }
 
         button:hover {
-            background-color: #c0392b;
+            background-color: #27ae60; /* Darker green on hover */
         }
 
         .other-action {
@@ -81,10 +141,13 @@
     </style>
 </head>
 <body>
+    <div class="banner">
+        <img class="logo" src="frontend/views/logo.png" alt="Logo">
+        <h1>Classroom Panel</h1>
+        <button class="dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    </div>
+    
     <div class="container">
-        <div class="title-box">
-            <h1 class="title">Project Navigator</h1>
-        </div>
         <form action="/login" method="post">
             <h2>Login</h2>
             <input type="text" name="username" placeholder="Username" required>
@@ -95,5 +158,14 @@
             <a href="/signup">Signup Instead</a>
         </div>
     </div>
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            var banners = document.querySelectorAll('.banner');
+            banners.forEach(banner => {
+                banner.classList.toggle('dark-mode');
+            });
+        }
+    </script>
 </body>
 </html>

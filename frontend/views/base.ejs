@@ -11,6 +11,8 @@
             margin: 0;
             padding: 0;
             background-color: #f9f9f9;
+            transition: background-color 0.3s ease; /* Added background color transition */
+            color: #333; /* Default text color */
         }
         .container {
             max-width: 600px;
@@ -19,6 +21,7 @@
             background-color: #ffffff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease; /* Added background color transition */
         }
         input[type="text"], input[type="password"], select {
             width: 100%;
@@ -30,27 +33,92 @@
         }
         input[type="submit"] {
             width: 100%;
-            background-color: #e74c3c;
-            color: white;
+            background-color: #2ecc71; /* Matched button color with banner */
+            color: white; /* White text */
             padding: 14px 20px;
             margin: 8px 0;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            transition: background-color 0.3s ease; /* Added color transition */
         }
         input[type="submit"]:hover {
-            background-color: #c0392b;
+            background-color: #27ae60; /* Darker green on hover */
         }
         label {
             color: #333333;
             margin-bottom: 5px;
             display: block;
         }
+        /* Banner and Logo */
+        .banner {
+            background-color: #2ecc71; /* Forest green */
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            transition: background-color 0.3s ease; /* Added background color transition */
+            position: relative; /* Added position relative for absolute positioning */
+        }
+        .logo {
+            position: absolute; /* Position the logo absolutely */
+            top: 50%; /* Adjust top position */
+            transform: translateY(-50%); /* Center vertically */
+            left: 10px; /* Adjust left position */
+            width: 40px; /* Adjust width as needed */
+            height: auto;
+        }
+        /* Dark Mode Button */
+        .dark-mode-btn {
+            position: absolute;
+            top: 50%; /* Adjust top position */
+            right: 10px;
+            background-color: transparent;
+            color: #7f7f7f;
+            border: 1px solid #7f7f7f;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Added color transition */
+        }
+        .dark-mode-btn:hover {
+            background-color: #333;
+            color: #fff; /* White text on hover */
+        }
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #333; /* Dark gray */
+        }
+        .container.dark-mode {
+            background-color: #ffffff; /* White background for containers in dark mode */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Keep the same shadow */
+        }
+        .banner.dark-mode {
+            background-color: #004d00; /* Dark green */
+            border-bottom: 2px solid #666; /* Dark gray */
+            color: #fff; /* White text in dark mode */
+        }
     </style>
 </head>
 <body>
-    <div class="container"> <h2>Welcome back <%= displayName %> </h2>
+    <!-- Dark Mode Toggle -->
+    
+
+    <!-- Banner -->
+    <div class="banner">
+        <img class="logo" src="frontend/views/logo.png" alt="Logo">
+ <!-- Adjust the src attribute to point to your logo file -->
+        <h1>Project Navigator</h1>
+        <button class="dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
     </div>
+
+    <div class="container">
+        <h2>Welcome back <%= displayName %> </h2>
+        <a href="/classrooms">
+            <button>Go to Classrooms Page</button>
+        </a>
+    </div>
+
     <div class="container">
         <h2>Create Classroom</h2>
         <form method="post" id="create-classroom-form">
@@ -72,5 +140,15 @@
             <input type="submit" value="Add Student">
         </form>
     </div>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            var banners = document.querySelectorAll('.banner');
+            banners.forEach(banner => {
+                banner.classList.toggle('dark-mode');
+            });
+        }
+    </script>
 </body>
 </html>

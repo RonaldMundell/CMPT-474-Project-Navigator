@@ -50,23 +50,47 @@
             margin-bottom: 5px;
             display: block;
         }
-        /* Banner and Logo */
         .banner {
             background-color: #2ecc71; /* Forest green */
             color: #fff;
             padding: 10px;
             text-align: center;
             border-radius: 8px 8px 0 0;
+            transition: background-color 0.3s ease; /* Added background color transition */
+            position: relative; /* Added position relative for absolute positioning */
         }
         .logo {
-            display: block;
-            margin: 0 auto;
-            width: 100px; /* Adjust width as needed */
+            position: absolute; /* Position the logo absolutely */
+            top: 50%; /* Adjust top position */
+            transform: translateY(-50%); /* Center vertically */
+            left: 10px; /* Adjust left position */
+            width: 40px; /* Adjust width as needed */
             height: auto;
+        }
+        /* Dark Mode Button */
+        .dark-mode-btn {
+            position: absolute;
+            top: 50%; /* Adjust top position */
+            right: 10px;
+            background-color: transparent;
+            color: #7f7f7f;
+            border: 1px solid #7f7f7f;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Added color transition */
+        }
+        .dark-mode-btn:hover {
+            background-color: #333;
+            color: #fff; /* White text on hover */
+        }
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #333; /* Dark gray */
         }
         /* Deadline Box */
         .deadline-box {
-            background-color: #f1c40f; /* Yellow */
+            background-color: #aed832; /* Yellow */
             color: #333;
             padding: 10px;
             margin-bottom: 20px;
@@ -75,15 +99,15 @@
         /* Dark Mode Button */
         .dark-mode-btn {
             position: absolute;
-            top: 10px;
+            top: 50%; /* Adjust top position */
             right: 10px;
             background-color: transparent;
-            color: #333;
-            border: 1px solid #333;
+            color: #7f7f7f;
+            border: 1px solid #7f7f7f;
             padding: 5px 10px;
             border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.3s ease; /* Added color transition */
         }
         .dark-mode-btn:hover {
             background-color: #333;
@@ -121,12 +145,13 @@
 </head>
 <body>
     <!-- Dark Mode Toggle -->
-    <button class="dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    
 
     <!-- Banner -->
     <div class="banner">
-        <h1>Classroom Panel</h1>
         <img class="logo" src="frontend/views/logo.png" alt="Logo">
+        <h1>Classroom Panel</h1>
+        <button class="dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
     </div>
 
     <!-- Deadline Box -->
