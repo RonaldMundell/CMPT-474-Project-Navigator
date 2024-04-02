@@ -35,6 +35,22 @@ router.get("/classrooms", async (_, res) => {
 });
 
 
+//get students
+router.get("/students", async (_, res) => {
+  const getStudents = httpsCallable(functions, 'getStudents')
+  try {
+    const students = await getStudents();
+    res.render('students', {
+      students: students.data
+    });
+  }
+  catch {
+    error => {
+      console.log("student", error);
+    }
+  }
+});
+
 // Routes
 router.get("/test", (_, res) => {
   res.render('base', {

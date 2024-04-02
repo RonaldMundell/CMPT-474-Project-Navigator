@@ -22,6 +22,23 @@ exports.addStudent = functions.https.onCall((data, context) => {
 
 });
 
+exports.getStudents = functions.https.onCall((data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError('failed pre-condition', 'the function must be called' +
+      'while authenticated');
+  }
+
+  return db.collection('students').get().then((snapshot) => {
+    const students = [];
+    snapshot.forEach((doc) => {
+      students.push(doc.data());
+    });
+    console.log(students)
+    return students;
+  });
+
+});
+
 function addUserToClassDb(studentName, classroomCode, uid) {
   return db.collection('students').doc(studentName.toString()).set({
     studentName: studentName,
