@@ -12,7 +12,7 @@ router.get("/", (_, res) => {
   const user = auth.currentUser;
   if (user !== null) {
     res.render('base', {
-      displayName: user.uid,
+      displayName: user.email,
     });
   } else {
     res.render('signup')
@@ -27,12 +27,12 @@ router.get("/test", (_, res) => {
 });
 
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   // add teacher
   const { teacher, classroom } = req.body;
   console.log(teacher, classroom);
-  var addClassroom = httpsCallable(functions, 'addClassroom')
-  addClassroom({
+  const addClassroom = httpsCallable(functions, 'addClassroom')
+  await addClassroom({
     classCode: classroom,
     teacherName: teacher
   }).then((result) => {
@@ -72,13 +72,11 @@ router.post('/signup', async (req, res) => {
   const { username, password, role } = req.body;
   console.log(username, password);
 
-  const setRole = httpsCallable(functions, 'setRole')
   const addUserAfterCreation = httpsCallable(functions, 'addUserAfterCreation')
   firebaseAuth.createUserWithEmailAndPassword(auth, username, password)
     .then(async (userCred) => {
       uid = userCred.user.uid;
-      await addUserAfterCreation({ email: username, uid });
-      await setRole({ uid, role });
+      await addUserAfterCreation({ email: username, uid, role });
       res.redirect('/');
     })
     .catch((error) => {

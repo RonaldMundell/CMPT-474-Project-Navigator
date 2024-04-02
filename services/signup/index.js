@@ -6,25 +6,16 @@ admin.initializeApp();
 const db = admin.firestore();
 
 exports.addUserAfterCreation = functions.https.onCall((data, context) => {
-  return addUserToDb(data.email, data.uid);
-});
-
-exports.setRole = functions.https.onCall((data, context) => {
   console.log(data);
   if (!context.auth) {
-    throw new functions.https.HttpsError('unauthenticated', 'You must be signed in to change role');
+    throw new https.HttpsError('failed-precondition', 'The function must be called while authenticated');
   }
-  return setRoleInDb(data.uid, data.role);
-})
+  return addUserToDb(data.email, data.uid, data.role);
+});
 
-function setRoleInDb(uid, role) {
-  return db.collection('users').doc(uid.toString()).update({
-    role: role
-  });
-}
-
-function addUserToDb(email, uid) {
+function addUserToDb(email, uid, role) {
   return db.collection('users').doc(uid.toString()).set({
-    email: email
+    email: email,
+    role: role
   });
 }
