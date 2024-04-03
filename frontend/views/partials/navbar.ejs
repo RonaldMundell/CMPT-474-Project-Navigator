@@ -1,0 +1,101 @@
+<style>
+    /* Navbar styles */
+    .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #2ecc71; /* Forest green */
+        color: #fff;
+        padding: 10px;
+        border-radius: 8px 8px 0 0;
+        position: relative;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+    }
+
+    .logo-container {
+        width: 100px;
+        height: auto;
+        display: flex;
+        justify-content: left;
+        align-items: left;
+    }
+    .logo-container img {
+        width: 100%;
+        height: auto;
+    }
+
+    .nav-links {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    .nav-links li {
+        margin-right: 10px;
+    }
+
+    .nav-links li a {
+        color: #fff;
+        text-decoration: none;
+        padding: 8px 15px; /* Increase size of links */
+        border-radius: 20px; /* Rounded button-like container */
+        background-color: #808080; /* Gray background */
+        transition: background-color 0.3s ease;
+    }
+
+    .nav-links li a:hover {
+        background-color: #a9a9a9; /* Slightly darker gray on hover */
+    }
+
+    .title {
+        margin: 0;
+        font-weight: bold;
+    }
+
+    .dark-mode {
+        background-color: #222; /* Dark background color */
+    }
+
+    /* Gray stripe underneath navbar */
+    .stripe {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%; /* Wider gray stripe */
+        height: 5px;
+        background-color: #ccc; /* Light gray */
+        transition: background-color 0.3s ease; /* Smooth color transition */
+    }
+
+    /* Dark mode */
+    body.dark-mode .stripe {
+        background-color: #555; /* Dark gray */
+    }
+</style>
+
+<nav class="navbar">
+    <div class="logo-container" onclick="href='/base'">
+        <img src="../logo_smol.png" alt="Logo" />
+    </div>
+    <h1 class="title">Project NaviGator</h1>
+    <ul class="nav-links">
+        <li><a href="/base">Home</a></li>
+        <li><a href="/classrooms">Classrooms</a></li>
+        <li><a href="#" onclick="toggleDarkMode()">DarkMode</a></li>
+        <li><a href="/login">Sign Out</a></li>
+    </ul>
+    <div class="stripe"></div> <!-- Gray stripe underneath navbar -->
+</nav>
+
+
+<script>
+    // Function to toggle dark mode
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        var banners = document.querySelectorAll('.banner');
+        banners.forEach(banner => {
+            banner.classList.toggle('dark-mode');
+        });
+    }
+</script>

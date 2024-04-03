@@ -29,45 +29,6 @@
             /* margin-right: auto; */
         }
 
-        .logo-container {
-            width: 100px;
-            height: auto;
-            display: flex;
-            justify-content: left;
-            align-items: left;
-            /* margin-left: auto; */
-            /* margin-right: auto; */
-
-        }
-        .logo-container img {
-            width: 100%;
-            height: auto;
-            /* position: absolute; */
-            /* left: 10px; */
-            /* top: 50%; */
-            /* transform: translateY(-50%); */
-            /* width: 100%; */
-            /* height: auto; */
-            /* align-items: left; */
-            /* justify-content: left; */
-        }
-        .banner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: #2ecc71; /* Forest green */
-            color: #fff;
-            padding: 10px;
-            /* text-align: center; */
-            border-radius: 8px 8px 0 0;
-            transition: background-color 0.3s ease; /* Added background color transition */
-            position: relative; /* Added position relative for absolute positioning */
-        }
-        .title-container {
-            flex-grow: 1;
-            text-align: center;
-        }
-
         input[type="text"], input[type="password"], select {
             width: 100%;
             padding: 10px;
@@ -95,57 +56,15 @@
             margin-bottom: 5px;
             display: block;
         }
-        /* Banner and Logo */
-
-
-        /* Dark Mode Button */
-        .dark-mode-btn {
-            position: absolute;
-            top: 50%; /* Adjust top position */
-            right: 10px;
-            background-color: transparent;
-            color: #7f7f7f;
-            border: 1px solid #7f7f7f;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease; /* Added color transition */
-        }
-        .dark-mode-btn:hover {
-            background-color: #333;
-            color: #fff; /* White text on hover */
-        }
-        /* Dark Mode */
-        body.dark-mode {
-            background-color: #333; /* Dark gray */
-        }
-        .container.dark-mode {
-            background-color: #ffffff; /* White background for containers in dark mode */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Keep the same shadow */
-        }
-        .banner.dark-mode {
-            background-color: #004d00; /* Dark green */
-            border-bottom: 2px solid #666; /* Dark gray */
-            color: #fff; /* White text in dark mode */
-        }
     </style>
 </head>
 <body>
-    <!-- Dark Mode Toggle -->
-    
+    <!-- Include Navbar -->
+    <%- include('partials/navbar') %>
 
-    <!-- Banner -->
-    <div class="banner">
-        <div class="logo-container"><img src="../logo_smol.png" alt="Logo" /></div>
-        <!-- <h1>Project Navigator</h1> -->
-        <!-- <button class="dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button> -->
-    </div>
-
+    <!-- Content -->
     <div class="container">
         <h2>Welcome back <%= displayName %> </h2>
-        <a href="/classrooms">
-            <button>Go to Classrooms Page</button>
-        </a>
     </div>
 
     <div class="container">
@@ -169,15 +88,5 @@
             <input type="submit" value="Add Student">
         </form>
     </div>
-
-    <script>
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            var banners = document.querySelectorAll('.banner');
-            banners.forEach(banner => {
-                banner.classList.toggle('dark-mode');
-            });
-        }
-    </script>
 </body>
 </html>

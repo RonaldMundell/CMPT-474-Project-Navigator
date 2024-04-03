@@ -7,173 +7,98 @@
     <style>
         /* Base CSS for styling */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f9f9f9;
             color: #333;
             transition: background-color 0.3s ease;
         }
+    
         .container {
             max-width: 800px;
             margin: 50px auto;
             padding: 20px;
-            background-color: #f5f5f5; /* Light gray */
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #f5f5f5;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s ease, color 0.3s ease;
         }
-        .logo-container {
-            width: 100px;
-            height: auto;
-            display: flex;
-            justify-content: left;
-            align-items: left;
-            /* margin-left: auto; */
-            /* margin-right: auto; */
-
-        }
-        .logo-container img {
-            width: 100%;
-            height: auto;
-            /* position: absolute; */
-            /* left: 10px; */
-            /* top: 50%; */
-            /* transform: translateY(-50%); */
-            /* width: 100%; */
-            /* height: auto; */
-            /* align-items: left; */
-            /* justify-content: left; */
-        }
-        .banner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: #2ecc71; /* Forest green */
-            color: #fff;
-            padding: 10px;
-            /* text-align: center; */
-            border-radius: 8px 8px 0 0;
-            transition: background-color 0.3s ease; /* Added background color transition */
-            position: relative; /* Added position relative for absolute positioning */
-        }
-        .title-container {
-            flex-grow: 1;
-            text-align: center;
-        }
-        input[type="text"], input[type="password"], select {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        input[type="submit"] {
-            width: 100%;
-            background-color: #2ecc71; /* Forest green */
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        input[type="submit"]:hover {
-            background-color: #27ae60; /* Darker forest green */
-        }
-        label {
-            color: #333;
-            margin-bottom: 5px;
-            display: block;
-        }
-        /* Dark Mode Button */
-        .dark-mode-btn {
-            position: absolute;
-            top: 50%; /* Adjust top position */
-            right: 10px;
-            background-color: transparent;
-            color: #7f7f7f;
-            border: 1px solid #7f7f7f;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease; /* Added color transition */
-        }
-        .dark-mode-btn:hover {
-            background-color: #333;
-            color: #fff; /* White text on hover */
-        }
-        /* Dark Mode */
-        body.dark-mode {
-            background-color: #333; /* Dark gray */
-        }
-        /* Deadline Box */
-        .deadline-box {
-            background-color: #aed832; /* Yellow */
-            color: #333;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-        }
-        /* Dark Mode Button */
-        .dark-mode-btn {
-            position: absolute;
-            top: 50%; /* Adjust top position */
-            right: 10px;
-            background-color: transparent;
-            color: #7f7f7f;
-            border: 1px solid #7f7f7f;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease; /* Added color transition */
-        }
-        .dark-mode-btn:hover {
-            background-color: #333;
-            color: #fff;
-        }
-        /* Dark Mode */
-        body.dark-mode {
-            background-color: #333; /* Dark gray */
-            color: #ddd;
-        }
-        .container.dark-mode {
-            background-color: #444; /* Dark gray */
-            border-color: #666; /* Dark gray */
-        }
-        .banner.dark-mode {
-            background-color: #004d00; /* Dark green */
-            border-bottom: 2px solid #666; /* Dark gray */
-        }
-        .deadline-box.dark-mode {
-            background-color: #b28900; /* Dark yellow */
-            color: #333;
-        }
-        /* Classroom entry styling */
+    
         .classroom-entry {
             margin-bottom: 20px;
         }
+    
         .classroom-details {
             display: none;
             margin-top: 10px;
         }
+    
         .classroom-details.show {
             display: block;
         }
+    
+        h2, h3, h4 {
+            font-weight: bold;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+    
+        textarea, input[type="text"], input[type="date"], input[type="submit"], button {
+            width: 100%;
+            padding: 12px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 18px;
+            color: #333; /* Ensure text color */
+        }
+    
+        textarea {
+            resize: vertical;
+        }
+    
+        input[type="submit"], button {
+            cursor: pointer;
+            background-color: #2ecc71;
+            color: #fff;
+            transition: background-color 0.3s ease;
+        }
+    
+        input[type="submit"]:hover, button:hover {
+            background-color: #27ae60;
+        }
+    
+        input[type="date"]::-webkit-inner-spin-button,
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            display: none;
+            -webkit-appearance: none;
+        }
+    
+        .toggle-details-btn[disabled] {
+            background-color: #ccc; /* Gray out the button */
+            cursor: not-allowed;
+        }
+    
+        .deadline-box {
+            background-color: #fff; /* Ensure white background */
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+    
+        .upcoming-deadline {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
     </style>
+    
 </head>
 <body>
-    <!-- Dark Mode Toggle -->
-    
-
-    <!-- Banner -->
-    <div class="banner">
-        <div class="logo-container"><img src="../logo_smol.png" alt="Logo" /></div>
-        <div class="title-container"><h1>Classroom Panel</h1></div>
-        <button class="dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-    </div>
+    <!-- Include the navbar -->
+    <%- include('partials/navbar') %>
 
     <!-- Deadline Box -->
     <div class="container deadline-box" id="deadline-box">
@@ -208,23 +133,30 @@
     </div>
 
     <script>
+        // Variable to store upcoming assignment details
         var upcomingAssignment = {
             assignment: null,
             dueDate: null,
             daysDifference: null
         };
-
+    
+        // Function to toggle classroom details
         function toggleClassroomDetails(index) {
             var details = document.getElementById('classroom-details-' + index);
             details.classList.toggle('show');
+    
+            // Gray out the toggle details button when toggled
+            var toggleButton = document.getElementById('toggle-btn-' + index);
+            toggleButton.disabled = !toggleButton.disabled;
         }
-        
+    
+        // Function to add assignment
         function addAssignment(index) {
             var assignmentInput = document.getElementById('assignment-' + index);
             var dueDateInput = document.getElementById('due-date-' + index);
             var assignment = assignmentInput.value;
             var dueDate = new Date(dueDateInput.value); // Convert due date to a Date object
-
+    
             if (assignment && dueDateInput.value) {
                 var assignmentsList = document.getElementById('assignments-list-' + index);
                 var listItem = document.createElement('li');
@@ -238,10 +170,10 @@
                 } else if (daysDifference < 1) {
                     listItem.style.color = 'red'; // Less than a day away
                 } else {
-                    listItem.style.color = 'yellow'; // Anything else
+                    listItem.style.color = 'gray'; // Anything else
                 }
                 assignmentsList.appendChild(listItem);
-
+    
                 // Update upcoming deadline if this assignment is sooner
                 if (!upcomingAssignment.dueDate || dueDate < upcomingAssignment.dueDate) {
                     upcomingAssignment.assignment = assignment;
@@ -249,7 +181,7 @@
                     upcomingAssignment.daysDifference = daysDifference;
                     updateUpcomingDeadline();
                 }
-
+    
                 // Clear input fields after adding assignment
                 assignmentInput.value = '';
                 dueDateInput.value = '';
@@ -257,7 +189,8 @@
                 alert('Please fill in both Assignment and Due Date fields.');
             }
         }
-
+    
+        // Function to update upcoming deadline panel
         function updateUpcomingDeadline() {
             var upcomingDeadline = document.getElementById('upcoming-deadline');
             var deadlineMessage = 'Upcoming Deadline: ';
@@ -270,19 +203,26 @@
             upcomingDeadline.textContent = deadlineMessage;
         }
 
-        function toggleDarkMode() {
-            var darkModeToggle = document.body.classList.toggle('dark-mode');
-            var containers = document.querySelectorAll('.container');
-            var banners = document.querySelectorAll('.banner');
-            var deadlineBox = document.getElementById('deadline-box');
-            containers.forEach(container => {
-                container.classList.toggle('dark-mode');
-            });
-            banners.forEach(banner => {
-                banner.classList.toggle('dark-mode');
-            });
-            deadlineBox.classList.toggle('dark-mode');
+        function updateUpcomingDeadline() {
+            var upcomingDeadline = document.getElementById('upcoming-deadline');
+            var deadlineMessage = 'Upcoming Deadline: ';
+            deadlineMessage += 'Assignment: ' + upcomingAssignment.assignment + ', Due in ';
+
+            // Determine color based on days until the deadline
+            var color = '';
+            if (upcomingAssignment.daysDifference <= 1) {
+                color = 'red'; // Due in a day or less
+            } else if (upcomingAssignment.daysDifference <= 7) {
+                color = 'gray'; // Due in less than a week
+            } else {
+                color = 'green'; // Due in more than a week
+            }
+
+            // Apply color to the upcoming deadline panel
+            upcomingDeadline.style.color = color;
+            upcomingDeadline.textContent = deadlineMessage + upcomingAssignment.daysDifference + ' days';
         }
     </script>
+    
 </body>
 </html>
