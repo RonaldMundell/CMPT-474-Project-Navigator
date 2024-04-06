@@ -13,7 +13,7 @@ const FUNCTIONS_PORT = 5001;
 app.use(express.static(__dirname));
 
 // disable this when deploying to production
-// connectFunctionsEmulator(functions, "localhost", FUNCTIONS_PORT);
+connectFunctionsEmulator(functions, "localhost", FUNCTIONS_PORT);
 
 // middleware
 app.use(bodyParser.urlencoded({ extended: true }))

@@ -20,12 +20,23 @@ router.get("/", (_, res) => {
 });
 
 router.get("/classrooms", async (_, res) => {
-  const getClassrooms = httpsCallable(functions, 'getClassrooms')
+  const getClassrooms = httpsCallable(functions, 'getClassrooms');
+  const getAssignments = httpsCallable(functions, 'getAssignments');
   try {
-    const classrooms = await getClassrooms();
-    res.render('classrooms', {
-      classrooms: classrooms.data
-    });
+    user = firebaseAuth.getAuth().currentUser;
+    if (user !== null) {
+      let arr = [];
+      const classrooms = await getClassrooms({ user: user.uid });
+      for (let classroom of classrooms.data) {
+        const assignments = await getAssignments({ classCode: classroom.classCode });
+        arr.push(assignments.data)
+      }
+      console.log(arr);
+      res.render('classrooms', {
+        classrooms: classrooms.data,
+        assignments: arr
+      });
+    }
   }
   catch {
     error => {
@@ -34,6 +45,26 @@ router.get("/classrooms", async (_, res) => {
   }
 });
 
+router.post("/classrooms", (req, res) => {
+  const { assignment, dueDate, index, classCode } = req.body;
+  try {
+    user = firebaseAuth.getAuth().currentUser;
+    if (user !== null) {
+      const addAssignment = httpsCallable(functions, 'addAssignment')
+      let assignmentDocument = {
+        assignment: assignment,
+        dueDate: dueDate,
+        index: index,
+        classCode: classCode
+      }
+      addAssignment(assignmentDocument);
+      console.log(assignmentDocument);
+    }
+  }
+  catch {
+    error => console.log("assignment", error);
+  }
+});
 
 //get students
 router.get("/students", async (_, res) => {

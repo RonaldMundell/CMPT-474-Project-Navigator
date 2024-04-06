@@ -103,6 +103,11 @@
     <!-- Deadline Box -->
     <div class="container deadline-box" id="deadline-box">
         <h2>Upcoming Deadline</h2>
+        <% assignments.forEach((assignment) => { %>
+          <% assignment.forEach(a => { %>
+            <li><%= a.assignment %> Due Date: <%= a.dueDate %></li>
+          <% }); %>
+        <% }); %>
         <p id="upcoming-deadline">No upcoming deadlines</p>
     </div>
 
@@ -110,8 +115,9 @@
     <div class="container">
         <h2>Classrooms</h2>
         <!-- Classroom Entries -->
-        <% classrooms.forEach((classroom, index) => { %>
         <div class="classroom-entry">
+        <% classrooms.forEach((classroom, index) => { %>
+        <div id="classroom-code" hidden><%= classroom.classCode %></div>
             <h3>Classroom: <%= classroom.teacherName %> - <%= classroom.classCode %></h3>
             <button onclick="toggleClassroomDetails(<%= index %>)">Toggle Details</button>
             <div id="classroom-details-<%= index %>" class="classroom-details">
@@ -125,7 +131,6 @@
                 <input type="date" id="due-date-<%= index %>" name="due-date">
                 <button onclick="addAssignment('<%= index %>')">Add Assignment</button>
                 <ul id="assignments-list-<%= index %>">
-                    <!-- List of assignments will be displayed here -->
                 </ul>
             </div>
         </div>
@@ -149,6 +154,24 @@
             var toggleButton = document.getElementById('toggle-btn-' + index);
             toggleButton.disabled = !toggleButton.disabled;
         }
+
+        function renderAssignment(data) {
+                var assignmentsList = document.getElementById('assignments-list-' + index);
+                var listItem = document.createElement('li');
+                listItem.textContent = 'Assignment: ' + assignment + ' - Due Date: ' + dueDate.toDateString();
+                // Calculate difference in days between current date and due date
+                var timeDifference = dueDate.getTime() - Date.now();
+                var daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+                // Apply color indicator based on days difference
+                if (daysDifference > 7) {
+                    listItem.style.color = 'green'; // Over a week away
+                } else if (daysDifference < 1) {
+                    listItem.style.color = 'red'; // Less than a day away
+                } else {
+                    listItem.style.color = 'gray'; // Anything else
+                }
+                assignmentsList.appendChild(listItem);
+        }
     
         // Function to add assignment
         function addAssignment(index) {
@@ -156,8 +179,24 @@
             var dueDateInput = document.getElementById('due-date-' + index);
             var assignment = assignmentInput.value;
             var dueDate = new Date(dueDateInput.value); // Convert due date to a Date object
+            var classCode = document.getElementById('classroom-code').innerHTML;
     
             if (assignment && dueDateInput.value) {
+              let fetchData = {
+                method: 'POST',
+                body: JSON.stringify({
+                  classCode: classCode,
+                  assignment: assignment,
+                  dueDate: dueDate,
+                  index: index
+                }),
+                headers: new Headers({
+                  'Content-Type': 'application/json'
+                })
+              }
+              fetch('/classrooms', fetchData)
+                .then(response => {console.log(response)})
+                .catch(error => {console.log(error)});
                 var assignmentsList = document.getElementById('assignments-list-' + index);
                 var listItem = document.createElement('li');
                 listItem.textContent = 'Assignment: ' + assignment + ' - Due Date: ' + dueDate.toDateString();
