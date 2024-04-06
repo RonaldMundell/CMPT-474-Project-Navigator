@@ -105,7 +105,7 @@
         <h2>Upcoming Deadline</h2>
         <% assignments.forEach((assignment) => { %>
           <% assignment.forEach(a => { %>
-            <li><%= a.assignment %> Due Date: <%= a.dueDate %></li>
+            <li><%= a.assignment %> Due Date: <%= a.dueDate %> Classroom: <%= a.classCode %></li>
           <% }); %>
         <% }); %>
         <p id="upcoming-deadline">No upcoming deadlines</p>
