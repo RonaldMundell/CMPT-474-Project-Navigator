@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom Panel</title>
+    <style>
+        /* Base CSS for styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            transition: background-color 0.3s ease;
+        }
+    
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+    
+        .classroom-entry {
+            margin-bottom: 20px;
+        }
+    
+        .classroom-details {
+            display: none;
+            margin-top: 10px;
+        }
+    
+        .classroom-details.show {
+            display: block;
+        }
+    
+        h2, h3, h4 {
+            font-weight: bold;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+    
+        textarea, input[type="text"], input[type="date"], input[type="submit"], button {
+            width: 100%;
+            padding: 12px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 18px;
+            color: #333; /* Ensure text color */
+        }
+    
+        textarea {
+            resize: vertical;
+        }
+    
+        input[type="submit"], button {
+            cursor: pointer;
+            background-color: #2ecc71;
+            color: #fff;
+            transition: background-color 0.3s ease;
+        }
+    
+        input[type="submit"]:hover, button:hover {
+            background-color: #27ae60;
+        }
+    
+    </style>
+    
+</head>
+<body>
+    <!-- Include the navbar -->
+    <%- include('partials/navbar') %>
+    <div class="container">
+        <h2>Classrooms</h2>
+        <div class="classroom-entry">
+        <% classrooms.forEach((classroom, index) => { %>
+        <div id="classroom-code" hidden></div>
+            <h3>Classroom: <%= classroom.teacherName %> - <%= classroom.classCode %></h3>
+            <button onclick="joinClassroom('<%= classroom.classCode %>', '<%= user %>')">Join Classroom</button>
+        </div>
+        <% }); %>
+    </div>
+
+    <script>
+    function joinClassroom(classCode, user) {
+      let fetchData = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ classCode, student: user })
+      }
+      fetch('/students', fetchData)
+      .then(_ => window.location.href = '/classrooms')
+      .catch(error => console.error(error))
+    };
+    </script>
+    
+</body>
+</html>
+

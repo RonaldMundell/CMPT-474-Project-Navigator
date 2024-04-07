@@ -66,27 +66,37 @@ router.post("/classrooms", (req, res) => {
   }
 });
 
-//get students
-router.get("/students", async (_, res) => {
-  const getStudents = httpsCallable(functions, 'getStudents')
+router.get('/students', async (req, res) => {
   try {
-    const students = await getStudents();
-    res.render('students', {
-      students: students.data
-    });
+    user = firebaseAuth.getAuth().currentUser;
+    if (user !== null) {
+      const getAllClassrooms = httpsCallable(functions, 'getAllClassrooms');
+      const classrooms = await getAllClassrooms();
+      res.render('students', {
+        classrooms: classrooms.data,
+        user: user.uid
+      });
+    } else {
+      res.render('badRequest');
+    }
   }
   catch {
-    error => {
-      console.log("student", error);
-    }
+    error => console.log("students", error);
   }
 });
 
-// Routes
-router.get("/test", (_, res) => {
-  res.render('base', {
-    displayName: "test"
-  });
+router.post('/students', async (req, res) => {
+  try {
+    user = firebaseAuth.getAuth().currentUser;
+    if (user !== null) {
+      const { classCode, student } = req.body;
+      const addStudentToClassroom = httpsCallable(functions, 'addStudentToClassroom');
+      await addStudentToClassroom({ classCode: classCode, user: student });
+      res.status(200).send("student added");
+    }
+  } catch {
+    error => console.log("students post:", error);
+  }
 });
 
 
